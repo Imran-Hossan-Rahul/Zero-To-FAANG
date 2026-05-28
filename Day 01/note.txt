@@ -1,0 +1,2 @@
+INT_MIN or INT_MAX ব্যবহার করতে হলে C++ এ |"<climits>" header file use korte hobe.
+float আর double দুটোই decimal number store করে, কিন্তু cout defaultভাবে trailing zeros দেখায় না। তাই 12.75000 এর বদলে শুধু 12.75 দেখায়। এটা calculation ভুল না, শুধু display format এর নিয়ম। fixed decimal চাইলে fixed << setprecision(n) ব্যবহার করতে হয়। এটা float আর double দুটো ক্ষেত্রেই একইভাবে কাজ করে।
