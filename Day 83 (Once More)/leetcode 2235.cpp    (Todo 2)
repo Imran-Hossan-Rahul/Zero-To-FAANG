@@ -1,0 +1,43 @@
+// Standard Addition with Auxiliary Variable
+class Solution {
+public:
+    int sum(int num1, int num2) {
+        int sum = num1+num2;
+
+        return sum;
+    }
+};
+
+
+
+//Space-Optimized Inline Return
+class Solution {
+public:
+    int sum(int num1, int num2) {
+        return num1 + num2;
+    }
+
+
+/*
+ToDo:
+Code can be more Space optimized. I must know how. And also in c++ we can use std::sum() butfor leetcode this can be not optimized. 
+*/
+};
+
+
+/*
+ToDo
+Task: Solve this Problem without using + operator
+
+class Solution {
+public:
+    int sum(int a, int b) {
+        while (b != 0) {
+            unsigned int carry = a & b;
+            a = a ^ b;
+            b = carry << 1;
+        }
+        return a;
+    }
+};
+*/

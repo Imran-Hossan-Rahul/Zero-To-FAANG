@@ -1,0 +1,47 @@
+// space complexity O(1) but beats 34.99%
+class Solution {
+public:
+    int findNumbers(vector<int>& nums) {
+        int evenCount = 0;
+        for(int i=0; i<nums.size(); i++){
+            if(nums[i] == 0){
+                continue;
+            }
+            if(((int)(log10(abs(nums[i]))) + 1) % 2 == 0){
+                evenCount++;
+            }
+        }
+
+        return evenCount;
+    }
+};
+
+
+// space complexity O(1) but beats 88.36%
+class Solution {
+public:
+    int findNumbers(vector<int>& nums) {
+        int evenCount = 0;
+        for (int num : nums) {
+            int digitCount = 0;
+            int temp = abs(num);
+            
+            if (temp == 0) digitCount = 1;
+            
+            while (temp > 0) {
+                digitCount++;
+                temp /= 10;
+            }
+            
+            if (digitCount % 2 == 0) {
+                evenCount++;
+            }
+        }
+        return evenCount;
+    }
+};
+
+/*
+ToDo:
+must find out the code which will beat 100% percent of all submissions. And also find out why and how those solution taking more space though it's original space complexity is O(1).
+*/
