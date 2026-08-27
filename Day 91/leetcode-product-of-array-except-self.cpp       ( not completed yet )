@@ -1,0 +1,25 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+
+int main(){
+
+    vector<int>arr = {-1,1,0,-3,3};
+
+    int n = arr.size();
+
+    vector<int>ans(n, 1);
+
+    // suffix product;
+    for(int i=n-2; i<arr.size(); i++){
+        ans[i] = ans[i+1] * arr[i+1]   ; 
+    }
+
+    // prefix product;
+    for(int i=1; i<arr.size(); i--){
+        arr[i] *= ans[i-1] * arr[i-1];
+    }
+
+    return 0;
+}
