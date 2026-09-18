@@ -42,8 +42,9 @@ int main(){
 
     //Ascending Sorting
     bubbleSortAscending(arr);
+
+    cout << "Ascending Sorting" << endl;
     for(int i=0; i<arr.size(); i++){
-        cout << "Ascending Sorting" << endl;
         cout << arr[i] << ", ";
     }
     cout << endl;
@@ -51,8 +52,9 @@ int main(){
 
     //Descending Sorting
     bubbleSortDescending(arr);
+    
+    cout << "Ascending Sorting" << endl;
     for(int i=0; i<arr.size(); i++){
-        cout << "Ascending Sorting" << endl;
         cout << arr[i] << ", ";
     }
     cout << endl;
