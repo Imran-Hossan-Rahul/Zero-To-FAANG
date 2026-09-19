@@ -38,17 +38,44 @@ int sortSlighlyBetter(vector<int>& arr, int n){
 }
 
 
+//Sorting Array with DNF(Duch National Flag algorithm); most optimal
+void dnfSort(vector<int>& arr, int n){
+    int low = 0, mid = 0, high = n - 1;
+
+    while(mid <= high){
+        if(arr[mid] == 0){
+            swap(arr[low], arr[mid]);
+            low++; mid++;
+        } else if(arr[mid] == 1){
+            mid++;
+        } else{
+            swap(arr[mid], arr[high]);
+            high--;
+        }
+    }
+}
+
+
 int main(){
 
 
     vector<int>arr = {2,0,2,1,1,0};
     int n = arr.size();
 
-    //Sort with brute force
-    // sortBruteForce(arr);
+    /*
+    Sort with brute force
+    sortBruteForce(arr);
 
-    //Sort with slightly better approach
+    Sort with slightly better approach
     sortSlighlyBetter(arr, n);
+    for(int i=0; i<n; i++){
+        cout << arr[i] << ", ";
+    }
+    cout << endl;
+    */
+   
+    //Sort with DNF algorithm;
+    dnfSort(arr, n);
     for(int i=0; i<n; i++){
         cout << arr[i] << ", ";
     }
