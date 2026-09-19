@@ -1,3 +1,5 @@
+    //We can simple solve this problem by next_permutation(A.begin(), A.end()) but it won't be allowed in the interview
+ 
     #include <iostream>
     #include <vector>
     using namespace std;
@@ -15,6 +17,7 @@
             }
         }
 
+        //reverse(A.begin() + pivot + 1, A.end())
         while(j>=0){
             arr[idx--] = arr2[j--];
         }
@@ -38,3 +41,14 @@
 
         return 0;
     }
+
+
+
+
+
+
+
+
+
+
+
