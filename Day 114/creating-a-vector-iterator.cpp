@@ -26,6 +26,6 @@ int main(){
         cout << *(arit) << ", ";
     }
     cout << endl;
-
+    
     return 0;
 }
