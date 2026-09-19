@@ -24,7 +24,7 @@ bool isValid(vector<int>& nums, int n, int m, int maxBook){
 int allocateBooks(vector<int>& nums, int n, int m){
 
     if(m > n){
-        return - 1;
+        return -1;
     }
 
     int sum = 0, maxVal = INT_MIN;
@@ -35,6 +35,7 @@ int allocateBooks(vector<int>& nums, int n, int m){
     }
 
     int start = maxVal, end = sum, ans = -1;
+    
     while(start <= end){
         int mid = start + ((end-start) / 2);
 
