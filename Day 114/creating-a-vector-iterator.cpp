@@ -21,7 +21,7 @@ int main(){
     }
     cout << endl;
 
-    //fastest way to create a vector iterator
+    //work same to same
     for(auto arit = vec.rbegin(); arit !=vec.rend(); arit++){
         cout << *(arit) << ", ";
     }
