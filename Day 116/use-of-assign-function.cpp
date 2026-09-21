@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include <list>
 using namespace std;
 
@@ -85,14 +86,137 @@ Why is `assign()` the professional choice?
 */
 
 
-
+/*
+using assign() for vector
 int main(){
 
-
+    int arr[5];
+    vector<int>vec, vec2;
     list<int>l;
 
-    l.assign({1, 2, 3});                       //assign(val1, val2, val3);
-    l.assign(5, -1);
+    vec.assign({1, 2, 3}); // Assigning multiple elements at once
+    vec.assign(5, -1);     // Assigning a single element for multiple time   v.assign(count, value);
+    vec2.assign(vec.begin(), vec.end());          // Assigning a part of vec2    v.assign(first, last);
+    vec2.assign(l.begin(), l.end());
+    vec.assign(arr, arr+5);
+    return 0;
+
+
+}
+
+Another to list
+#include <iostream>
+#include <vector>
+#include <list>
+using namespace std;
+
+int main() {
+
+    int arr[5] = {10, 20, 30, 40, 50};
+    vector<int> vec = {1, 2, 3, 4, 5};
+    list<int> l;
+    l.assign(vec.begin(), vec.end());
+    l.assign(vec.begin() + 1, vec.begin() + 4);
+    l.assign(arr, arr + 5);
+    l.assign(arr + 1, arr + 4);
+
+    // list to list
+    list<int> l1 = {1, 2, 3, 4, 5};
+    list<int> l2;
+    l2.assign(l1.begin(), l1.end());
+    l2.assign(next(l1.begin()), next(l1.begin(), 4));
 
     return 0;
 }
+
+
+
+
+// Another to array
+#include <iostream>
+#include <vector>
+#include <list>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+
+    vector<int> vec1 = {1, 2, 3, 4, 5};
+    vector<int> vec2;
+
+    list<int> l1 = {10, 20, 30, 40, 50};
+    list<int> l2;
+
+    int arr1[5] = {100, 200, 300, 400, 500};
+    int arr2[5];
+
+
+    // Copying all elements from vector to vector
+    vec2.assign(vec1.begin(), vec1.end());
+
+
+    // Copying selected elements from vector to vector
+    vec2.assign(vec1.begin() + 1, vec1.begin() + 4);
+
+
+    // Copying all elements from list to vector
+    vec2.assign(l1.begin(), l1.end());
+
+
+    // Copying selected elements from list to vector
+    vec2.assign(next(l1.begin()), next(l1.begin(), 4));
+
+
+    // Copying all elements from array to vector
+    vec2.assign(arr1, arr1 + 5);
+
+
+    // Copying selected elements from array to vector
+    vec2.assign(arr1 + 1, arr1 + 4);
+
+
+    // Copying all elements from vector to list
+    l2.assign(vec1.begin(), vec1.end());
+
+
+    // Copying selected elements from vector to list
+    l2.assign(vec1.begin() + 1, vec1.begin() + 4);
+
+
+    // Copying all elements from list to list
+    l2.assign(l1.begin(), l1.end());
+
+
+    // Copying selected elements from list to list
+    l2.assign(next(l1.begin()), next(l1.begin(), 4));
+
+
+    // Copying all elements from array to list
+    l2.assign(arr1, arr1 + 5);
+
+
+    // Copying selected elements from array to list
+    l2.assign(arr1 + 1, arr1 + 4);
+
+
+    // Copying all elements from vector to array
+    copy(vec1.begin(), vec1.end(), arr2);
+
+
+    // Copying selected elements from vector to array
+    copy(vec1.begin() + 1, vec1.begin() + 4, arr2);
+
+
+    // Copying all elements from list to array
+    copy(l1.begin(), l1.end(), arr2);
+
+
+    // Copying selected elements from list to array
+    copy(next(l1.begin()), next(l1.begin(), 4), arr2);
+
+
+    return 0;
+}
+
+*/
