@@ -118,12 +118,12 @@ allocates memory compared to a vector.
 
 int main(){
 
-    
+    // copying elements from the array into a list
     int arr[] = {50, 60, 70, 80};
     int size = sizeof(arr) / sizeof(arr[0]);
 
     list<int>l;
-    l.assign(arr, arr + size);                      //copping array elements into the list (same for vector to list and list to vector)
+    l.assign(arr, arr + size);           // syntax => container_name.assign(start_address, end_address)
 
     return 0;
 }
