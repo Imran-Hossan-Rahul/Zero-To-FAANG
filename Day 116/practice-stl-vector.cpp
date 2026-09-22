@@ -390,8 +390,6 @@ int main (){
     cout << "size after using reserve(): " << vec3.size();
     cout << "capacity after using reserve(): " << vec3.capacity();
 
-    vec3.
-
     return 0;
     
 }
