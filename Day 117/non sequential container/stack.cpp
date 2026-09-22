@@ -102,10 +102,53 @@ void demonstrateUnderlyingContainer() {
     cout << "Stack using a Vector under the hood. Top: " << vectorStack.top() << "\n\n";
 }
 
+void demonstrateSwapAndEmplace() {
+    cout << "--- 4. Swap and Emplace Functions ---\n";
+    
+    stack<string> s1, s2;
+    
+    // emplace() is like push(), but slightly faster because it constructs the object 
+    // directly in the stack's memory, avoiding an extra copy operation.
+    s1.emplace("Hello");
+    s1.emplace("World");
+    
+    s2.push("C++");
+    s2.push("STL");
+    
+    cout << "Before swap - s1 top: " << s1.top() << " | s2 top: " << s2.top() << "\n";
+    
+    // swap() exchanges the contents of two stacks instantly in O(1) time
+    s1.swap(s2);
+    
+    cout << "After swap  - s1 top: " << s1.top() << " | s2 top: " << s2.top() << "\n\n";
+}
+
+void demonstrateEmptyStackDanger() {
+    cout << "--- 5. The Danger of Empty Stacks ---\n";
+    
+    stack<int> s;
+    
+    /*
+    ❌ CRITICAL WARNING:
+    If you call `s.top()` or `s.pop()` on an empty stack, your program will CRASH 
+    (Undefined Behavior). C++ does not check if the stack is empty for you!
+    
+    Always, ALWAYS check if the stack is empty before accessing the top!
+    */
+    
+    if (!s.empty()) {
+        cout << "Top element is: " << s.top() << "\n";
+    } else {
+        cout << "Stack is empty! Cannot call top() or pop() safely.\n\n";
+    }
+}
+
 int main() {
     demonstrateBasicStack();
     demonstrateStackIteration();
     demonstrateUnderlyingContainer();
+    demonstrateSwapAndEmplace();
+    demonstrateEmptyStackDanger();
     
     /*
     Summary: 
