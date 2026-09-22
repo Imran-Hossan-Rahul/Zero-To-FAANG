@@ -7,14 +7,66 @@
  * It is a sequence container that allows fast insertion and deletion at BOTH 
  * the front and the back. 
  * 
- * VECTOR vs DEQUE - THE CORE DIFFERENCES:
- * 1. Front Operations: 
- *    - Vector: `push_front` is NOT allowed natively (Doing it manually takes O(N) time).
- *    - Deque: `push_front()` and `pop_front()` are built-in and extremely fast (O(1)).
- * 2. Memory Layout (Under the Hood):
- *    - Vector: Elements are stored in a SINGLE, perfectly contiguous block of memory.
- *    - Deque: Elements are stored in MULTIPLE fixed-size memory blocks (chunks). 
- *      The deque keeps a central "map" or array of pointers to track these blocks.
+ * WHY DOES PUSH_FRONT WORK IN DEQUE BUT NOT IN VECTOR? (The Big Question)
+ * 
+ * 1. The Vector Problem (Single Block Memory):
+ *    A vector uses ONE single continuous block of memory. If you have 1,000,000 elements 
+ *    in a vector and you want to add a new element at the very front (index 0), you HAVE TO 
+ *    shift all 1,000,000 elements one position to the right to make space for the new one.
+ *    This shifting takes O(N) time and is extremely slow. 
+ *    To prevent developers from accidentally writing very slow code, C++ designers completely 
+ *    removed the `push_front()` function from std::vector.
+ * 
+ * 2. The Deque Solution (Chunked Memory):
+ *    A deque does NOT use one single block of memory. Instead, it uses multiple fixed-size 
+ *    arrays (called "chunks" or "blocks"), and keeps a central "map" (an array of pointers) 
+ *    to track where these chunks are.
+ *    
+ *    How push_front() works in Deque:
+ *    When you call `push_front()`, the deque goes to its FIRST chunk. If there is empty 
+ *    space at the front of that chunk, it just puts the data there.
+ *    If the first chunk is completely full, the deque simply allocates ONE new empty chunk 
+ *    in memory, adds the pointer of this new chunk to the front of its "map", and puts 
+ *    the data there. 
+ *    Notice the magic? NO EXISTING ELEMENTS WERE SHIFTED! That is why `push_front()` in 
+ *    a deque is incredibly fast (O(1) time complexity).
+ * 
+ * DEEP DIVE: HOW DEQUE WORKS UNDER THE HOOD (The Map & Chunk Architecture)
+ * 
+ * 1. What exactly is inside a deque object?
+ *    When you write `deque<int> dq;`, the deque object itself is quite small. It contains:
+ *    - A pointer to a "Map" (An array of pointers).
+ *    - The size of this Map.
+ *    - A `start` iterator and a `finish` iterator.
+ *    (Note: A deque iterator is much heavier than a vector pointer. It contains 4 things: 
+ *     a pointer to the current element, a pointer to the start of the chunk, a pointer to 
+ *     the end of the chunk, and a pointer back to the Map).
+ * 
+ * 2. What happens when it is created?
+ *    Initially, it allocates a small Map (e.g., an array of 8 pointers) and allocates 
+ *    just ONE chunk of memory (often 512 bytes). The `start` and `finish` iterators are 
+ *    setup to point to the MIDDLE of this chunk. Why the middle? So that if you do 
+ *    `push_front()` or `push_back()`, it has room to grow in both directions immediately!
+ * 
+ * 3. What happens when you push_back and there is no space?
+ *    Unlike a vector (which copies 100% of its data to a 2x larger block), a deque does this:
+ *    - It simply allocates ONE new empty chunk of memory (e.g., another 512 bytes).
+ *    - It adds the pointer of this new chunk to the next available slot in its "Map".
+ *    - It puts your new data into this new chunk.
+ *    - NO existing data is copied or shifted!
+ * 
+ * 4. What if the "Map" itself gets full?
+ *    If you add so many chunks that the Map (the array of pointers) gets full, the deque 
+ *    will allocate a larger Map, copy the POINTERS to the new Map, and destroy the old Map. 
+ *    Copying a few pointers is ridiculously fast compared to copying millions of actual 
+ *    data elements (which is what vector does).
+ * 
+ * 5. Does Deque have a capacity() or reserve() function?
+ *    NO! Because a deque never allocates one giant continuous block of memory, the concept 
+ *    of "total capacity" doesn't apply to it. It just keeps adding chunks one by one as needed. 
+ *    Therefore, `dq.capacity()` or `dq.reserve()` do not exist in C++ STL.
+ * 
+ * OTHER CORE DIFFERENCES:
  * 3. Pointer Arithmetic:
  *    - Vector: `&vec[0] + 1` perfectly points to `vec[1]`.
  *    - Deque: Pointer arithmetic is DANGEROUS! Because memory is broken into chunks, 
